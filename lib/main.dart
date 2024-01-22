@@ -1,4 +1,7 @@
+import 'package:app/pages/home_page.dart';
+import 'package:app/pages/login_page.dart';
 import 'package:app/pages/main_page.dart';
+import 'package:app/utilities/route_names.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +20,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: kRouteMainPageName,
+      routes: {
+        kRouteMainPageName: (context) => const MainPage(),
+        kRouteHomePageName: (context) => const HomePage(),
+        kRouteLoginPageName: (context) => const LoginPage()
+      },
     );
   }
 }

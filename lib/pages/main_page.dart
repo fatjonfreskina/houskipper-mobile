@@ -1,18 +1,30 @@
-import 'package:flutter/cupertino.dart';
+import 'package:app/services/prefs_service.dart';
+import 'package:app/utilities/prefs_constants.dart';
+import 'package:app/utilities/route_names.dart';
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+import '../components/navigation_drawer.dart';
 
-  final String title;
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
   int _counter = 0;
 
+/* TODO ... throws errors!
+  @override
+  void initState() {
+    super.initState();
+    PrefsManager prefsManager = PrefsManager();
+    if (prefsManager.getString(kUserId) == null) {
+      Navigator.pushNamed(context, kRouteLoginPageName);
+    }
+  }
+ */
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -24,8 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
       ),
+      drawer: const MyNavigationDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
