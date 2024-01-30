@@ -1,5 +1,8 @@
+import 'package:app/components/large_text_button.dart';
 import 'package:app/models/user_model.dart';
+import 'package:app/services/state/prefs_constants.dart';
 import 'package:app/services/state/prefs_service.dart';
+import 'package:app/utilities/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +12,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+// TODO: add reset jwt debug button
 
 class _HomeScreenState extends State<HomeScreen> {
   User user = User(id: 0, email: '', firstName: '', lastName: '');
@@ -37,6 +42,15 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text('Hi ${user.firstName}'),
+            LargeTextButton(
+              text: 'Logout',
+              onPress: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove(kPrefJwt);
+                print('pressed');
+              },
+              color: kColorAlertError,
+            ),
           ],
         ),
       ),
