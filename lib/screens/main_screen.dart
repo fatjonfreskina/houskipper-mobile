@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     items = [
-      NavModel(page: HomeScreen(), navKey: homeNavKey),
+      NavModel(page: const HomeScreen(), navKey: homeNavKey),
       NavModel(page: const HouseScreen(tab: 2), navKey: houseNavKey),
       NavModel(page: const StatsScreen(tab: 3), navKey: statsNavKey),
       NavModel(page: const SettingsScreen(tab: 4), navKey: settingsNavKey)

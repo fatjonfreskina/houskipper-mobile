@@ -8,9 +8,9 @@ class HouseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('House'),
+        title: const Text('House'),
       ),
-      body: Text('Hello from house page'),
+      body: const Text('Hello from house page'),
     );
   }
 }

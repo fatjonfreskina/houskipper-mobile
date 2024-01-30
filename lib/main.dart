@@ -8,7 +8,6 @@ import 'package:app/utilities/route_names.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 
-// TODO: splash screen
 void main() {
   runApp(const MyApp());
 }
@@ -40,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         kRouteMainPageName: (context) => const MainScreen(),
         kRouteLoginPageName: (context) => const LoginScreen(),
-        kRouteHomePageName: (context) => HomeScreen()
+        kRouteHomePageName: (context) => const HomeScreen()
       },
       home: const SplashScreen(),
     );

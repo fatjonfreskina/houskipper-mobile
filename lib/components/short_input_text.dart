@@ -1,11 +1,11 @@
 import 'package:app/utilities/ui_constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShortInputText extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
-  const ShortInputText({super.key, required this.controller, required this.hintText});
+  const ShortInputText(
+      {super.key, required this.controller, required this.hintText});
 
   @override
   State<ShortInputText> createState() => _ShortInputTextState();
@@ -22,7 +22,8 @@ class _ShortInputTextState extends State<ShortInputText> {
             decoration: InputDecoration(
                 hoverColor: kColorBluePrimary,
                 focusColor: kColorBluePrimary,
-                border: const OutlineInputBorder(borderSide: BorderSide(color: kColorBluePrimary)),
+                border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: kColorBluePrimary)),
                 labelText: widget.hintText)));
   }
 

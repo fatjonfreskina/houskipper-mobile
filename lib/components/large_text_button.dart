@@ -2,11 +2,16 @@ import 'package:app/utilities/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class LargeTextButton extends StatelessWidget {
-  LargeTextButton({Key? key, required this.color, required this.text, required this.onPress}) : super(key: key);
-
   final Color color;
   final String text;
-  void Function() onPress;
+  final void Function() onPress;
+
+  const LargeTextButton({
+    super.key,
+    required this.color,
+    required this.text,
+    required this.onPress,
+  });
 
   @override
   Widget build(BuildContext context) {
