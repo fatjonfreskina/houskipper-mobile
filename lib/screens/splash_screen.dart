@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:app/services/state/prefs_constants.dart';
+import 'package:app/services/state/prefs_service.dart';
 import 'package:app/utilities/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,13 +36,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -62,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       jwt = prefs.getString(kPrefJwt) ?? '';
-      print("Set the token");
+      print("Set the token to $jwt");
     });
   }
 
@@ -75,5 +69,12 @@ class _SplashScreenState extends State<SplashScreen>
     } else {
       Navigator.pushReplacementNamed(context, kRouteLoginPageName);
     }
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    super.dispose();
   }
 }

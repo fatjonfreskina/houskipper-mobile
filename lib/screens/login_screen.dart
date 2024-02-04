@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:app/components/labeled_input_text.dart';
 import 'package:app/components/large_text_button.dart';
 import 'package:app/components/short_input_text.dart';
 import 'package:app/services/network/user_api.dart';
@@ -44,59 +45,69 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 30),
-            const Text(
-              "Login",
-              style: kTitleTextStyle,
-            ),
-            const SizedBox(height: 30),
-            ShortInputText(
-              hintText: 'username',
-              controller: usernameController,
-            ),
-            const SizedBox(height: 20),
-            ShortInputText(
-              hintText: 'password',
-              controller: passwordController,
-            ),
-            const SizedBox(height: 20),
-            LargeTextButton(
-                color: kColorBluePrimary,
-                text: 'Login',
-                onPress: () async {
-                  ApiResponse<http.Response> response = await UserApiClient()
-                      .login(usernameController.text, passwordController.text);
-                  if (response.success) {
-                    print("Login successful");
-                    User user = response.data;
-                    print("Got user: $user");
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    PrefsManager().setUserPrefs(prefs, user);
-                    var jwt = user.jwt;
-                    if (jwt != null) {
-                      prefs.setString(kPrefJwt, jwt);
-                      print("Set jwt to: $jwt");
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushReplacementNamed(
-                          context, kRouteHomePageName);
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                "Login",
+                style: kTitleTextStyle,
+              ),
+              const Divider(indent: 40, endIndent: 40),
+              const SizedBox(height: 30),
+              LabeledInputText(
+                  controller: usernameController,
+                  labelText: 'username',
+                  obscureText: false),
+              const SizedBox(height: 20),
+              LabeledInputText(
+                  controller: passwordController,
+                  labelText: 'password',
+                  obscureText: true),
+              const SizedBox(height: 20),
+              LargeTextButton(
+                  color: kColorBluePrimary,
+                  text: 'Login',
+                  onPress: () async {
+                    ApiResponse<http.Response> response = await UserApiClient()
+                        .login(
+                            usernameController.text, passwordController.text);
+                    if (response.success) {
+                      print("Login successful");
+                      User user = response.data;
+                      print("Got user: $user");
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      PrefsManager().setUserPrefs(prefs, user);
+                      var jwt = user.jwt;
+                      if (jwt != null) {
+                        prefs.setString(kPrefJwt, jwt);
+                        print("Set jwt to: $jwt");
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacementNamed(
+                            context, kRouteHomePageName);
+                      }
+                    } else {
+                      serverMessage = response.errorMessage;
+                      print("Login not successful: $serverMessage");
                     }
-                  } else {
-                    serverMessage = response.errorMessage;
-                    print("Login not successful: $serverMessage");
-                  }
-                }),
-            const SizedBox(height: 30),
-            const Text(
-              "Not a member?",
-              style: kBodyTextStyle,
-            ),
-            const SizedBox(height: 20),
-            LargeTextButton(
-                color: kColorGreySecondary, text: 'Register', onPress: () {})
-          ],
+                  }),
+              const Divider(indent: 40, endIndent: 40),
+              const SizedBox(height: 30),
+              const Text(
+                "Not a member?",
+                style: kHintTextStyle,
+              ),
+              LargeTextButton(
+                  color: kColorGreySecondary,
+                  text: 'Register',
+                  onPress: () {
+                    Navigator.pushReplacementNamed(
+                        context, kRouteRegisterPageName);
+                  })
+            ],
+          ),
         ),
       ),
     );

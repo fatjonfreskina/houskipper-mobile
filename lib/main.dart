@@ -1,6 +1,7 @@
 import 'package:app/screens/home_screen.dart';
 import 'package:app/screens/login_screen.dart';
 import 'package:app/screens/main_screen.dart';
+import 'package:app/screens/register_screen.dart';
 import 'package:app/screens/splash_screen.dart';
 import 'package:app/utilities/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,21 @@ class _MyAppState extends State<MyApp> {
 
     HttpOverrides.global = MyHttpOverrides();
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'houskipper',
       theme: ThemeData.dark().copyWith(
+          inputDecorationTheme: InputDecorationTheme(
+            fillColor: kColorWhite,
+            filled: true,
+            labelStyle: const TextStyle(color: kColorBluePrimary),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(color: kColorWhite),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(color: kColorBluePrimary),
+            ),
+          ),
           primaryColor: kColorBluePrimary,
           primaryColorDark: kColorBluePrimary,
           scaffoldBackgroundColor: kColorGreyPrimary,
@@ -39,7 +53,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         kRouteMainPageName: (context) => const MainScreen(),
         kRouteLoginPageName: (context) => const LoginScreen(),
-        kRouteHomePageName: (context) => const HomeScreen()
+        kRouteHomePageName: (context) => const HomeScreen(),
+        kRouteRegisterPageName: (context) => const RegisterScreen(),
       },
       home: const SplashScreen(),
     );
