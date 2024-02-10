@@ -16,7 +16,7 @@ class _ShortInputTextState extends State<ShortInputText> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 240.0,
+        width: kInputTextWidth,
         child: TextField(
             controller: widget.controller,
             decoration: InputDecoration(

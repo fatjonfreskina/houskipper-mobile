@@ -1,11 +1,14 @@
 import 'package:app/components/large_text_button.dart';
 import 'package:app/models/user_model.dart';
-import 'package:app/services/state/prefs_constants.dart';
 import 'package:app/services/state/prefs_service.dart';
+import 'package:app/utilities/route_names.dart';
 import 'package:app/utilities/ui_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// TODO: Create card (take it from the tutorial project), Miller's law
+// TODO: Create navbar bottom
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,7 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 PrefsManager().clearPrefs(prefs);
                 if (kDebugMode) {
                   print('Removed preferences');
+                  PrefsManager().printPrefs(prefs);
                 }
+                Navigator.pushReplacementNamed(context, kRouteLoginPageName);
               },
               color: kColorAlertError,
             ),

@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-
 import 'package:app/services/state/prefs_constants.dart';
 import 'package:app/services/state/prefs_service.dart';
 import 'package:app/utilities/route_names.dart';
@@ -56,20 +55,22 @@ class _SplashScreenState extends State<SplashScreen>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       jwt = prefs.getString(kPrefJwt) ?? '';
-      print("Set the token to $jwt");
+      print('Set the token to $jwt');
     });
   }
 
   void validateToken(context, String token) async {
-    print("Validating token");
+    print('Validating token');
     ApiResponse<http.Response> response =
         await UserApiClient().testToken(token);
     if (response.success) {
-      print("Token is valid");
-      // Todo set the user prefs
+      print('Token is valid');
+      print('User data: ${response.data}');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await PrefsManager().setUserPrefs(prefs, response.data);
       Navigator.pushReplacementNamed(context, kRouteHomePageName);
     } else {
-      print("Token is invalid");
+      print('Token is invalid');
       Navigator.pushReplacementNamed(context, kRouteLoginPageName);
     }
   }

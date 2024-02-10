@@ -1,8 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'package:app/components/labeled_input_text.dart';
 import 'package:app/components/large_text_button.dart';
-import 'package:app/components/short_input_text.dart';
 import 'package:app/services/network/user_api.dart';
 import 'package:app/services/state/prefs_constants.dart';
 import 'package:app/utilities/route_names.dart';
@@ -51,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const SizedBox(height: 30),
               const Text(
-                "Login",
+                'Login',
                 style: kTitleTextStyle,
               ),
               const Divider(indent: 40, endIndent: 40),
@@ -74,36 +71,40 @@ class _LoginScreenState extends State<LoginScreen> {
                         .login(
                             usernameController.text, passwordController.text);
                     if (response.success) {
-                      print("Login successful");
                       User user = response.data;
-                      print("Got user: $user");
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
-                      PrefsManager().setUserPrefs(prefs, user);
+                      await PrefsManager().setUserPrefs(prefs, user);
                       var jwt = user.jwt;
                       if (jwt != null) {
-                        prefs.setString(kPrefJwt, jwt);
-                        print("Set jwt to: $jwt");
+                        await prefs.setString(kPrefJwt, jwt);
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacementNamed(
                             context, kRouteHomePageName);
                       }
                     } else {
                       serverMessage = response.errorMessage;
-                      print("Login not successful: $serverMessage");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(serverMessage),
+                          duration: const Duration(
+                              seconds: 2), // Set the duration here
+                          behavior: SnackBarBehavior
+                              .floating, // Set the behavior to floating
+                        ),
+                      );
                     }
                   }),
               const SizedBox(height: 30),
               const Text(
-                "Not a member?",
+                'Not a memsber?',
                 style: kHintTextStyle,
               ),
               LargeTextButton(
                   color: kColorGreySecondary,
                   text: 'Register',
                   onPress: () {
-                    Navigator.pushReplacementNamed(
-                        context, kRouteRegisterPageName);
+                    Navigator.pushNamed(context, kRouteRegisterPageName);
                   })
             ],
           ),

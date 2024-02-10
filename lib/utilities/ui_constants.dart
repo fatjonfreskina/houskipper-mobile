@@ -33,6 +33,8 @@ const kFormTextStyle = TextStyle(
   color: kColorGreyPrimary,
 );
 
+const kInputTextWidth = 260.0;
+
 const kFormLabelTextStyle = TextStyle(
   fontSize: 14.0,
   fontWeight: FontWeight.normal,

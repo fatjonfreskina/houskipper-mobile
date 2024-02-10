@@ -19,7 +19,7 @@ class UserApiClient {
 
   Future<ApiResponse<http.Response>> login(
       String username, String password) async {
-    var url = Uri.parse("$baseUrl$kBackendUserLogin");
+    var url = Uri.parse('$baseUrl$kBackendUserLogin');
     try {
       var response = await http
           .post(
@@ -37,15 +37,20 @@ class UserApiClient {
 
       int statusCode = response.statusCode;
       bool success = response.statusCode >= 200 && response.statusCode < 300;
-      var data =
-          User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+
+      User? data;
+      if (success) {
+        data = User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      } else {
+        data = null;
+      }
 
       return ApiResponse(
           data: data,
           success: success,
           errorMessage: success ? '' : 'Login failed',
           statusCode: statusCode);
-    } catch (e) {
+    } on TimeoutException {
       return ApiResponse(
           data: null,
           success: false,
@@ -55,7 +60,7 @@ class UserApiClient {
   }
 
   Future<ApiResponse<http.Response>> testToken(String jwt) async {
-    var url = Uri.parse("$baseUrl$kBackendUserTestJwt");
+    var url = Uri.parse('$baseUrl$kBackendUserTestJwt');
     try {
       var response = await http.get(
         url,
@@ -70,9 +75,11 @@ class UserApiClient {
 
       int statusCode = response.statusCode;
       bool success = response.statusCode >= 200 && response.statusCode < 300;
+      var data =
+          User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
 
       return ApiResponse(
-          data: null,
+          data: data,
           success: success,
           errorMessage: success ? '' : 'Invalid token',
           statusCode: statusCode);
@@ -86,7 +93,7 @@ class UserApiClient {
   }
 
   Future<ApiResponse<http.Response>> auth(String jwt) async {
-    var url = Uri.parse("$baseUrl$kBackendUserTestAuth");
+    var url = Uri.parse('$baseUrl$kBackendUserTestAuth');
     try {
       var response = await http.get(
         url,
@@ -108,6 +115,52 @@ class UserApiClient {
           data: data,
           success: success,
           errorMessage: success ? '' : 'Login failed',
+          statusCode: statusCode);
+    } on TimeoutException {
+      return ApiResponse(
+          data: null,
+          success: false,
+          errorMessage: 'The connection has timed out!',
+          statusCode: 408);
+    }
+  }
+
+  Future<ApiResponse<http.Response>> register(
+      String email, String password, String firstName, String lastName) async {
+    var url = Uri.parse('$baseUrl$kBackendUserRegister');
+    try {
+      var response = await http
+          .post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'password': password,
+          'first_name': firstName,
+          'last_name': lastName
+        }),
+      )
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        // Handle the timeout here
+        throw TimeoutException('The connection has timed out!');
+      });
+
+      int statusCode = response.statusCode;
+      bool success = response.statusCode >= 200 && response.statusCode < 300;
+      User? data;
+
+      if (success) {
+        data = User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      } else {
+        data = null;
+      }
+
+      return ApiResponse(
+          data: data,
+          success: success,
+          errorMessage: success ? '' : 'Register failed',
           statusCode: statusCode);
     } catch (e) {
       return ApiResponse(
