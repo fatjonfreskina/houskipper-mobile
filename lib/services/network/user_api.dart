@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:app/services/network/api_common.dart';
 import 'package:http/http.dart' as http;
@@ -19,63 +20,101 @@ class UserApiClient {
   Future<ApiResponse<http.Response>> login(
       String username, String password) async {
     var url = Uri.parse("$baseUrl$kBackendUserLogin");
-    var response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body:
-          jsonEncode(<String, String>{'email': username, 'password': password}),
-    );
+    try {
+      var response = await http
+          .post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(
+            <String, String>{'email': username, 'password': password}),
+      )
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        // Handle the timeout here
+        throw TimeoutException('The connection has timed out!');
+      });
 
-    int statusCode = response.statusCode;
-    bool success = response.statusCode >= 200 && response.statusCode < 300;
-    var data = User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      int statusCode = response.statusCode;
+      bool success = response.statusCode >= 200 && response.statusCode < 300;
+      var data =
+          User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
 
-    return ApiResponse(
-        data: data,
-        success: success,
-        errorMessage: success ? '' : 'Login failed',
-        statusCode: statusCode);
+      return ApiResponse(
+          data: data,
+          success: success,
+          errorMessage: success ? '' : 'Login failed',
+          statusCode: statusCode);
+    } catch (e) {
+      return ApiResponse(
+          data: null,
+          success: false,
+          errorMessage: 'The connection has timed out!',
+          statusCode: 408);
+    }
   }
 
   Future<ApiResponse<http.Response>> testToken(String jwt) async {
     var url = Uri.parse("$baseUrl$kBackendUserTestJwt");
-    var response = await http.get(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $jwt',
-      },
-    );
+    try {
+      var response = await http.get(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $jwt',
+        },
+      ).timeout(const Duration(seconds: 10), onTimeout: () {
+        // Handle the timeout here
+        throw TimeoutException('The connection has timed out!');
+      });
 
-    int statusCode = response.statusCode;
-    bool success = response.statusCode >= 200 && response.statusCode < 300;
+      int statusCode = response.statusCode;
+      bool success = response.statusCode >= 200 && response.statusCode < 300;
 
-    return ApiResponse(
-        data: null,
-        success: success,
-        errorMessage: success ? '' : 'Invalid token',
-        statusCode: statusCode);
+      return ApiResponse(
+          data: null,
+          success: success,
+          errorMessage: success ? '' : 'Invalid token',
+          statusCode: statusCode);
+    } catch (e) {
+      return ApiResponse(
+          data: null,
+          success: false,
+          errorMessage: 'The connection has timed out!',
+          statusCode: 408);
+    }
   }
 
   Future<ApiResponse<http.Response>> auth(String jwt) async {
     var url = Uri.parse("$baseUrl$kBackendUserTestAuth");
-    var response = await http.get(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $jwt',
-      },
-    );
+    try {
+      var response = await http.get(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $jwt',
+        },
+      ).timeout(const Duration(seconds: 10), onTimeout: () {
+        // Handle the timeout here
+        throw TimeoutException('The connection has timed out!');
+      });
 
-    int statusCode = response.statusCode;
-    bool success = response.statusCode >= 200 && response.statusCode < 300;
-    var data = User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-    return ApiResponse(
-        data: data,
-        success: success,
-        errorMessage: success ? '' : 'Login failed',
-        statusCode: statusCode);
+      int statusCode = response.statusCode;
+      bool success = response.statusCode >= 200 && response.statusCode < 300;
+      var data =
+          User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+
+      return ApiResponse(
+          data: data,
+          success: success,
+          errorMessage: success ? '' : 'Login failed',
+          statusCode: statusCode);
+    } catch (e) {
+      return ApiResponse(
+          data: null,
+          success: false,
+          errorMessage: 'The connection has timed out!',
+          statusCode: 408);
+    }
   }
 }

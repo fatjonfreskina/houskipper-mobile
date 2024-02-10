@@ -93,7 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       print("Login not successful: $serverMessage");
                     }
                   }),
-              const Divider(indent: 40, endIndent: 40),
               const SizedBox(height: 30),
               const Text(
                 "Not a member?",

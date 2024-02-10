@@ -61,12 +61,15 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void validateToken(context, String token) async {
+    print("Validating token");
     ApiResponse<http.Response> response =
         await UserApiClient().testToken(token);
     if (response.success) {
+      print("Token is valid");
       // Todo set the user prefs
       Navigator.pushReplacementNamed(context, kRouteHomePageName);
     } else {
+      print("Token is invalid");
       Navigator.pushReplacementNamed(context, kRouteLoginPageName);
     }
   }
