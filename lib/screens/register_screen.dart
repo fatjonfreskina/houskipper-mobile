@@ -6,7 +6,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 // TODO: Add icons to the inputs
-// TODO: Back button to the app bar
+// TODO: Add a password visibility toggle
+// TODO: Add a password confirmation visibility toggle
+// TODO: Add hint text to the inputs
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
