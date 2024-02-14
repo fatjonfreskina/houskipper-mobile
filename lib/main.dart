@@ -1,6 +1,5 @@
 import 'package:app/screens/home_screen.dart';
 import 'package:app/screens/login_screen.dart';
-import 'package:app/screens/main_screen.dart';
 import 'package:app/screens/register_screen.dart';
 import 'package:app/screens/splash_screen.dart';
 import 'package:app/utilities/ui_constants.dart';
@@ -51,9 +50,10 @@ class _MyAppState extends State<MyApp> {
           scaffoldBackgroundColor: kColorGreyPrimary,
           appBarTheme: const AppBarTheme(backgroundColor: kColorBluePrimary)),
       routes: {
-        kRouteMainPageName: (context) => const MainScreen(),
         kRouteLoginPageName: (context) => const LoginScreen(),
-        kRouteHomePageName: (context) => const HomeScreen(),
+        kRouteHomePageName: (context) => const HomeScreen(
+              tab: 1,
+            ),
         kRouteRegisterPageName: (context) => const RegisterScreen(),
       },
       home: const SplashScreen(),

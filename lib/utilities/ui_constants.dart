@@ -14,8 +14,13 @@ const kTitleTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const kBodyTextStyle = TextStyle(
+const kLabelTextStyle = TextStyle(
   fontSize: 22.0,
+  color: kColorGreyPrimary,
+);
+
+const kBodyTextStyle = TextStyle(
+  fontSize: 18.0,
   fontWeight: FontWeight.normal,
   color: kColorWhite,
 );
@@ -45,3 +50,7 @@ const kFormLabelTextStyle = TextStyle(
 const kSmallSizedBoxHeight = 20.0;
 const kMediumSizedBoxHeight = 40.0;
 const kLargeSizedBoxHeight = 80.0;
+
+// CARD STYLES
+const kActiveCardColor = Color(0xFF1D1E33);
+const kInactiveCardColor = Color(0xFF111328);
