@@ -1,5 +1,4 @@
 import 'package:app/components/bottom_nav_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StatsScreen extends StatefulWidget {

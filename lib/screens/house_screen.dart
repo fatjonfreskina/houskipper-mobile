@@ -8,7 +8,7 @@ class HouseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavBar(
-        selectedIndex: 1,
+        selectedIndex: 0,
         pageContext: context,
       ),
       appBar: AppBar(

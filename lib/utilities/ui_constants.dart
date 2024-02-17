@@ -12,23 +12,23 @@ const kColorMenuBG = Color(0xFF4AA2F3);
 
 // TEXT STYLES
 const kTitleTextStyle = TextStyle(
-  fontSize: 40.0,
+  fontSize: 28.0,
   fontWeight: FontWeight.bold,
 );
 
 const kLabelTextStyle = TextStyle(
-  fontSize: 22.0,
+  fontSize: 20.0,
   color: kColorGreyPrimary,
 );
 
 const kBodyTextStyle = TextStyle(
-  fontSize: 18.0,
+  fontSize: 16.0,
   fontWeight: FontWeight.normal,
   color: kColorWhite,
 );
 
 const kHintTextStyle = TextStyle(
-  fontSize: 14.0,
+  fontSize: 12.0,
   fontWeight: FontWeight.normal,
   color: kColorWhite,
 );

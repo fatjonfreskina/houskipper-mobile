@@ -1,3 +1,4 @@
+import 'package:app/components/avatar.dart';
 import 'package:app/components/bottom_nav_bar.dart';
 import 'package:app/components/icon_content.dart';
 import 'package:app/components/reusable_card.dart';
@@ -38,19 +39,34 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: const [
+          Avatar(),
+        ],
       ),
       bottomNavigationBar: BottomNavBar(
-        selectedIndex: 0,
+        selectedIndex: 1,
         pageContext: context,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Hello ${user.firstName} ${user.lastName}',
+              style: kTitleTextStyle,
+            ),
+          ),
+          const Divider(
+            color: kColorGreySecondary,
+            indent: 20,
+            endIndent: 20,
+          ),
           Row(
             children: [
               Expanded(
                 child: ReusableCard(
-                  color: kActiveCardColor,
+                  color: Colors.transparent,
                   onPress: () {
                     debugPrint('Pressed');
                   },
@@ -60,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: ReusableCard(
-                  color: kActiveCardColor,
+                  color: Colors.transparent,
                   onPress: () {
                     debugPrint('Pressed');
                   },
@@ -74,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Expanded(
                 child: ReusableCard(
-                  color: kActiveCardColor,
+                  color: Colors.transparent,
                   onPress: () {
                     debugPrint('Pressed');
                   },
@@ -86,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: ReusableCard(
-                  color: kActiveCardColor,
+                  color: Colors.transparent,
                   onPress: () {
                     debugPrint('Pressed');
                   },
@@ -102,19 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Expanded(
                 child: ReusableCard(
-                  color: kActiveCardColor,
-                  onPress: () {
-                    debugPrint('Pressed');
-                  },
-                  cardChild: const IconContent(
-                    icon: Icons.abc_sharp,
-                    label: 'abs',
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ReusableCard(
-                  color: kActiveCardColor,
+                  color: Colors.transparent,
                   onPress: () {
                     debugPrint('Pressed');
                   },
