@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   initState() {
     loadData();
+    // TODO: load data on houses and chores as well
     super.initState();
   }
 
