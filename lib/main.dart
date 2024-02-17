@@ -1,7 +1,10 @@
 import 'package:app/screens/home_screen.dart';
+import 'package:app/screens/house_screen.dart';
 import 'package:app/screens/login_screen.dart';
+import 'package:app/screens/profile_screen.dart';
 import 'package:app/screens/register_screen.dart';
 import 'package:app/screens/splash_screen.dart';
+import 'package:app/screens/stats_screen.dart';
 import 'package:app/utilities/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:app/utilities/route_names.dart';
@@ -47,14 +50,15 @@ class _MyAppState extends State<MyApp> {
           ),
           primaryColor: kColorBluePrimary,
           primaryColorDark: kColorBluePrimary,
-          scaffoldBackgroundColor: kColorGreyPrimary,
-          appBarTheme: const AppBarTheme(backgroundColor: kColorBluePrimary)),
+          scaffoldBackgroundColor: kColorBackground,
+          appBarTheme: const AppBarTheme(backgroundColor: kColorMenuBG)),
       routes: {
         kRouteLoginPageName: (context) => const LoginScreen(),
-        kRouteHomePageName: (context) => const HomeScreen(
-              tab: 1,
-            ),
+        kRouteHomePageName: (context) => const HomeScreen(),
         kRouteRegisterPageName: (context) => const RegisterScreen(),
+        kRouteHousePageName: (context) => const HouseScreen(),
+        kRouteStatsPageName: (context) => const StatsScreen(),
+        kRouteProfilePageName: (context) => const ProfileScreen(),
       },
       home: const SplashScreen(),
     );

@@ -1,3 +1,4 @@
+import 'package:app/components/bottom_nav_bar.dart';
 import 'package:app/components/icon_content.dart';
 import 'package:app/components/reusable_card.dart';
 import 'package:app/models/user_model.dart';
@@ -10,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // TODO: Add functionality to navbar
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required int tab});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -18,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   User user = User(id: 0, email: '', firstName: '', lastName: '');
-  int _selectedIndex = 0;
 
   void loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,43 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      debugPrint('Index: $_selectedIndex');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cleaning_services_outlined),
-            label: 'Stats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_sharp),
-            label: 'Stats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        backgroundColor: kColorBluePrimary,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 0,
+        pageContext: context,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
